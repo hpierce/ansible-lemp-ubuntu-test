@@ -1,21 +1,19 @@
 ---
-# tasks file for hpierce.lemp-ubuntu
+# tasks file for ansible-lemp-ubuntu-test
 
 # PACKAGES
-- name: install nginx
-  apt:
-    name: nginx
-    state: present
 
-- name: install php
+- name: Install packages 
   apt:
-    name: php7.0-fpm,php7.0-mysql
+    name: "{{ item }}"
     state: present
-
-- name: install mysql
-  apt:
-    name: mysql-server,python-mysqldb
-    state: present
+    install_recommends: yes
+  with_items:
+    - 'nginx'
+    - 'php7.0-fpm'
+    - 'php7.0-mysql'
+    - 'mysql-server'
+    - 'python-mysqldb'
 
 # STARTUP MYSQL
 - name: Start the MySQL service
